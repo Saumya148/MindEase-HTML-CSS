@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>MindEase – Mood Motivator</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      text-align: center;
+      background-color: #f0f4f8;
+      transition: background-color 1s ease;
+      animation: fadeInBody 2s ease-in;
+    }
+
+    h1 {
+      margin-top: 2rem;
+      font-size: 2.5rem;
+      color: #333;
+      animation: fadeInText 2s ease-in-out;
+    }
+
+    .moods {
+      margin-top: 1.5rem;
+    }
+
+    button {
+      padding: 1rem 2rem;
+      margin: 0.5rem;
+      font-size: 1.1rem;
+      border: none;
+      border-radius: 30px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    }
+
+    .mood-btn.happy { background-color: #ffeb3b; }
+    .mood-btn.sad { background-color: #2196f3; color: white; }
+    .mood-btn.angry { background-color: #f44336; color: white; }
+
+    .quote-box {
+      margin-top: 2rem;
+      font-size: 1.5rem;
+      display: none;
+      color: #222;
+      animation: fadeInQuote 1s ease;
+    }
+
+    .emoji {
+      font-size: 3rem;
+      display: block;
+      margin: 1rem 0;
+    }
+
+    .retry-btn {
+      background-color: #4a90e2;
+      color: white;
+    }
+
+    .retry-btn:hover {
+      background-color: #357ABD;
+    }
+
+    @keyframes fadeInText {
+      from { opacity: 0; transform: translateY(-10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes fadeInQuote {
+      from { opacity: 0; transform: scale(0.9); }
+      to { opacity: 1; transform: scale(1); }
+    }
+
+    @keyframes fadeInBody {
+      from { background-color: #ffffff; }
+      to { background-color: #f0f4f8; }
+    }
+
+    audio {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>🌿 MindEase: How are you feeling today?</h1>
+
+  <!-- Background music per mood -->
+  <audio id="happyMusic" loop>
+    <source src="happy.mp3" type="audio/mpeg">
+  </audio>
+  <audio id="sadMusic" loop>
+    <source src="sad.mp3" type="audio/mpeg">
+  </audio>
+  <audio id="angryMusic" loop>
+    <source src="angry.mp3" type="audio/mpeg">
+  </audio>
+
+  <div class="moods">
+    <button class="mood-btn happy" onclick="showQuote('happy')">😊 Happy</button>
+    <button class="mood-btn sad" onclick="showQuote('sad')">😔 Sad</button>
+    <button class="mood-btn angry" onclick="showQuote('angry')">😡 Angry</button>
+  </div>
+
+  <div class="quote-box" id="quote-box"></div>
+
+  <button class="retry-btn" id="retry" style="display:none;" onclick="resetMood()">🌈 Try Another Mood</button>
+
+  <script>
+    function stopAllMusic() {
+      ['happyMusic', 'sadMusic', 'angryMusic'].forEach(id => {
+        const audio = document.getElementById(id);
+        audio.pause();
+        audio.currentTime = 0;
+      });
+    }
+
+    function showQuote(mood) {
+      stopAllMusic();
+
+      const quotes = {
+        happy: { text: `"Shine like the whole universe is yours." – Rumi`, emoji: "😄", bg: "#fffde7" },
+        sad: { text: `"Even the darkest night will end and the sun will rise." – Victor Hugo`, emoji: "😢", bg: "#e3f2fd" },
+        angry: { text: `"Speak when you are angry and you'll make the best speech you’ll ever regret." – Ambrose Bierce`, emoji: "😤", bg: "#ffebee" }
+      };
+
+      const q = quotes[mood];
+      document.body.style.backgroundColor = q.bg;
+      const box = document.getElementById('quote-box');
+      box.innerHTML = `<span class='emoji'>${q.emoji}</span>No worries, I have something for you 🌟<br><br><em>${q.text}</em>`;
+      box.style.display = 'block';
+      document.getElementById('retry').style.display = 'inline-block';
+      document.querySelector('.moods').style.display = 'none';
+
+      document.getElementById(mood + "Music").play();
+    }
+
+    function resetMood() {
+      stopAllMusic();
+      document.body.style.backgroundColor = '#f0f4f8';
+      document.getElementById('quote-box').style.display = 'none';
+      document.querySelector('.moods').style.display = 'block';
+      document.getElementById('retry').style.display = 'none';
+    }
+  </script>
+
+</body>
+</html>
+
