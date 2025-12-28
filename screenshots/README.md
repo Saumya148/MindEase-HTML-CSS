@@ -5,6 +5,3 @@
 
 ### Mood Selection Result
 ![Mood Result](screenshots/mood.png)
-
-
-
