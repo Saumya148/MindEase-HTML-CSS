@@ -28,6 +28,14 @@ The project focuses on clean UI design, CSS animations, and basic user interacti
 The goal of this project is to demonstrate **foundational front-end development skills**, focusing on layout design, styling, transitions, and animations using pure HTML and CSS.
 
 ---
+## 📸 Project Preview
+
+### Home Screen
+![Home Screen](screenshots/home.png)
+
+### Mood Selection Result
+![Mood Result](screenshots/mood.png)
+
 
 ## 📂 Project Structure
 
